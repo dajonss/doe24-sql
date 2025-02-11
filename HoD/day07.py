@@ -1,9 +1,11 @@
---Clues:
---Customerid 4167
---Same item different color
---Same time
+import sqlite3
 
+con = sqlite3.connect("noahs.sqlite")
 
+cur = con.cursor()
+
+#query = "SELECT * FROM customers;"
+cur.execute("""
 SELECT shipped, sku, desc, name, phone
 	FROM customers
 	JOIN orders USING (customerid)
@@ -15,5 +17,7 @@ SELECT shipped, sku, desc, name, phone
 		OR shipped LIKE '2022-04-23 18:45%')
 		AND SKU like 'COL%'
 	ORDER BY name;
-
+    """)
+resultat = cur.fetchall()
+print(resultat)
 
